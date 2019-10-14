@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ShareholderRegister >
+ <Document>This Is Register</Document>
+ <DocumentDate>2018-09-25T10:48:25.0185302+03:00</DocumentDate>
+ <RecordDate>2018-09-25T10:48:25.0140167+03:00</RecordDate>
+ <Issuer>
+ <Name>Emitent</Name>
+ <EDRPOU>1134567</EDRPOU>
+ <Address>
+ <Country>Country</Country>
+ <PostCode>00000</PostCode>
+ <State>State</State>
+ <District>Distr</District>
+ <City>City</City>
+ <Street>Street</Street>
+ </Address>
+ <EDRICI>000000</EDRICI>
+ </Issuer>
+ <Depository>
+ <CustodyKind>Custodian</CustodyKind>
+ <Name>CSD</Name>
+ <EDRPOU>30370711</EDRPOU>
+ <Address>
+ <Country>Country</Country>
+ <PostCode>00000</PostCode>
+ <State>State</State>
+ <District>Distr</District>
+ <City>City</City>
+ <Street>Street</Street>
+ </Address>
+ <License>License</License>
+ <Contacts>My contacts</Contacts>
+ <CountOwners>0</CountOwners>
+ <CountStocks>0</CountStocks>
+ <CountEncumberStocks>0</CountEncumberStocks>
+ <CountVoitingStocks>0</CountVoitingStocks>
+ </Depository>
+ <Custodians>
+ <CustodianElement>
+ <CustodyKind>Custodian</CustodyKind>
+ <Name>Custody 1</Name>
+ <Account>100024-UA40123456</Account>
+ <MDOCode>123456</MDOCode>
+ <EDRPOU>01123456</EDRPOU>
+ <Address>
+ <Country>Country</Country>
+ <PostCode>00000</PostCode>
+ <State>State</State>
+ <District>Distr</District>
+ <City>City</City>
+ <Street>Street</Street>
+ </Address>
+ <License>Custody Lic</License>
+ <Contacts>DI contacts</Contacts>
+ <Owners>
+ <OwnerElement>
+ <Owner>
+ <OwnerIndividual>
+ <Account>123456-UA10123456</Account>
+ <BankAccount />
+
+ <Address>
+ <Country>Country</Country>
+ <PostCode>00000</PostCode>
+ <State>State2</State>
+ <District>Distr2</District>
+ <City>City 2</City>
+ <Street>Street2</Street>
+ </Address>
+ <Name>Petrov Vodkin</Name>
+ <Citizenship>UA</Citizenship>
+ <Document>Passport</Document>
+ <Birth>Anywere</Birth>
+ <TIN>0123456789</TIN>
+ </OwnerIndividual>
+ <OwnerIndividual>
+ <Account>123456-UA10123456</Account>
+ <BankAccount />
+ <Address>
+ <Country>Country</Country>
+ <PostCode>00000</PostCode>
+ <State>State2</State>
+ <District>Distr2</District>
+ <City>City 2</City>
+ <Street>Street2</Street>
+ </Address>
+ <Name>Petrov Whiskey</Name>
+ <Citizenship>UA</Citizenship>
+ <Document>Passport</Document>
+ <Birth>Anywere</Birth>
+ <TIN>0123456788</TIN>
+ </OwnerIndividual>
+ </Owner>
+ <TypeDeponentCode>110</TypeDeponentCode>
+ <CountStock>200</CountStock>
+ <CountStockNotary>0</CountStockNotary>
+ <StockValue>0</StockValue>
+ </OwnerElement>
+ <OwnerElement>
+ <Owner>
+ <OwnerCompanyResident>
+ <Account>123456-UA10123456</Account>
+ <BankAccount />
+ <Name>TOV "Roga"</Name>
+ <Address>
+ <Country>Country</Country>
+ <PostCode>00000</PostCode>
+ <State>State2</State>
+ <District>Distr2</District>
+ <City>City 2</City>
+ <Street>Street2</Street>
+ </Address>
+ <EDRPOU>123457</EDRPOU>
+ </OwnerCompanyResident>
+ </Owner>
+ <TypeDeponentCode>310</TypeDeponentCode>
+ <CountStock>1</CountStock>
+ <CountStockNotary>0</CountStockNotary>
+ <StockValue>0</StockValue>
+ <Encumbers>
+ <Encumber>
+ <StockCount>1</StockCount>
+ <Description>427000</Description>
+ </Encumber>
+ </Encumbers>
+ </OwnerElement>
+
+ </Owners>
+ <CountOwners>2</CountOwners>
+ <CountStocks>200</CountStocks>
+ <CountEncumberStocks>1</CountEncumberStocks>
+ <CountVoitingStocks>200</CountVoitingStocks>
+ </CustodianElement>
+ <CustodianElement>
+ <CustodyKind>Custodian</CustodyKind>
+ <Name>Custody 2</Name>
+ <Account>100024-UA40654321</Account>
+ <MDOCode>654321</MDOCode>
+ <EDRPOU>41123456</EDRPOU>
+ <Address>
+ <Country>Country</Country>
+ <PostCode>00000</PostCode>
+ <State>State2</State>
+ <District>Distr2</District>
+ <City>City 2</City>
+ <Street>Street2</Street>
+ </Address>
+ <License>Custody Lic</License>
+ <Contacts>DI contacts</Contacts>
+ <Owners>
+ <OwnerElement>
+ <Owner>
+ <OwnerCompanyNonResident>
+ <Account>123456-UA10123456</Account>
+ <Address>
+ <Country>Country</Country>
+ <PostCode>00000</PostCode>
+ <State>State2</State>
+ <District>Distr2</District>
+ <City>City 2</City>
+ <Street>Street2</Street>
+ </Address>
+ <BankAccount />
+ <Name>Canada stocks LLC</Name>
+ <IdCode>BH23131</IdCode>
+ <Country>Canada</Country>
+ </OwnerCompanyNonResident>
+ </Owner>
+ <TypeDeponentCode>320</TypeDeponentCode>
+ <CountStock>500</CountStock>
+ <CountStockNotary>0</CountStockNotary>
+ <StockValue>0</StockValue>
+ </OwnerElement>
+ <OwnerElement>
+ <Owner>
+ <OwnerGov>
+ <Type>Goverment</Type>
+ <Account>123456-UA10123456</Account>
+ <Address>
+ <Country>Country</Country>
+ <PostCode>00000</PostCode>
+ <State>State2</State>
+ <District>Distr2</District>
+ <City>City 2</City>
+ <Street>Street2</Street>
+ </Address>
+ <BankAccount />
+ <NameSubject>KMU</NameSubject>
+ <EDRPOU>123457</EDRPOU>
+ <NameTerGr>Kyiv City office</NameTerGr>
+ </OwnerGov>
+ </Owner>
+
+ <TypeDeponentCode>210</TypeDeponentCode>
+ <CountStock>100</CountStock>
+ <CountStockNotary>0</CountStockNotary>
+ <StockValue>0</StockValue>
+ <Restrictions>
+ <Restriction>
+ <StockCount>100</StockCount>
+ <Kind>NonVoting</Kind>
+ </Restriction>
+ </Restrictions>
+ </OwnerElement>
+ </Owners>
+ <CountOwners>2</CountOwners>
+ <CountStocks>100</CountStocks>
+ <CountEncumberStocks>0</CountEncumberStocks>
+ <CountVoitingStocks>500</CountVoitingStocks>
+ </CustodianElement>
+ </Custodians>
+</ShareholderRegister>
