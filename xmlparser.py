@@ -14,8 +14,11 @@ def parse_xml(fname):
     except er:
         exit('Parsing error')
     root = tree.getroot()
-    for child in root.findall('./Custodians//CustodianElement//Owners//OwnerElement//Owner//OwnerIndividual//Account'):
-        print('\ttag:', child.tag, 'text: ', child.text)
+    for child in root.findall('./Custodians//CustodianElement//Owners//OwnerElement'):
+        owner = child.find('Owner')
+        Name = None if owner[0].find('Name') is None else owner[0].find('Name').text
+        print('\tOwner type:', owner[0].tag, '\tCountStock: ', child.find('CountStock').text, '\tAccount: ', owner[0].find('Account').text, \
+            '\tName: ', Name)
         
 def conv(txt):
     
@@ -56,7 +59,7 @@ def process_dbf(fname):
 
 def main():
     parse_xml('reestr.xml')
-    process_dbf('dbase.dbf')
+    #process_dbf('dbase.dbf')
 
 if __name__ == "__main__":
     main()
