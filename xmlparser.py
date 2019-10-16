@@ -36,18 +36,17 @@ def parse_xml(fname):
 
     record_date = root.find('RecordDate').text[:10]
 
-    for child in root.findall('./Custodians//CustodianElement//Owners//OwnerElement'):
-        record = {}
-        owner = child.find('Owner')
-        owner_type = owner[0]
-        record['DATE'] = record_date
-        record['KOD'] = 'Ф' if owner_type.tag == 'OwnerIndividual' else 'Ю'
-        name = get_field_text(owner_type, 'Name')
-        citizenship = get_field_text(owner_type, 'Citizenship', '-')
-        record['NAME'] = "{0} ({1})".format(name, citizenship) 
-        record['DEPO_ID'] = get_field_text(owner_type, 'Account')
-        record['R2'] = get_address(owner_type.find('Address'))
-        owners.append(record)
+    for childs in root.findall('./Custodians//CustodianElement//OwnerElements//OwnerElement//Owners'):
+        for owner_type in childs:
+            record = {}
+            record['DATE'] = record_date
+            record['KOD'] = 'Ф' if owner_type.tag == 'OwnerIndividual' else 'Ю'
+            name = get_field_text(owner_type, 'Name')
+            citizenship = get_field_text(owner_type, 'Citizenship', '-')
+            record['NAME'] = "{0} ({1})".format(name, citizenship) 
+            record['DEPO_ID'] = get_field_text(owner_type, 'Account')
+            record['R2'] = get_address(owner_type.find('Address/Address'))
+            owners.append(record)
         #print('\tOwner type:', owner[0].tag, '\tCountStock: ', child.find('CountStock').text, '\tAccount: ', owner[0].find('Account').text, \
         #    '\tName: ', Name)
     for o in owners:
@@ -91,12 +90,12 @@ def process_dbf(fname):
         rec["DIV_KIND"] = 0 
         rec["SANKCII"] = ""
         table.append(rec)
-    print('Dattabse complete!')
+    print('Database complete!')
     table.close()
 
 def main():
     parse_xml('reestr.xml')
-    process_dbf('dbase.dbf')
+    #process_dbf('dbase.dbf')
 
 if __name__ == "__main__":
     main()

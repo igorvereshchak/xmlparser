@@ -1,32 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ShareholderRegister >
- <Document>This Is Register</Document>
- <DocumentDate>2018-09-25T10:48:25.0185302+03:00</DocumentDate>
- <RecordDate>2018-09-25T10:48:25.0140167+03:00</RecordDate>
+<ShareholderRegister xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+ <DocumentInfo>This Is Register</DocumentInfo>
+ <DocumentDate>2019-07-31T17:19:28.3130953+03:00</DocumentDate>
+ <RecordDate>2019-07-31T17:19:28.3108642+03:00</RecordDate>
  <Issuer>
  <Name>Emitent</Name>
  <EDRPOU>1134567</EDRPOU>
  <Address>
+ <Type>Legal</Type>
  <Country>Country</Country>
- <PostCode>00000</PostCode>
- <State>State</State>
+ <Region>State</Region>
  <District>Distr</District>
  <City>City</City>
  <Street>Street</Street>
+ <PostCode>00000</PostCode>
  </Address>
  <EDRICI>000000</EDRICI>
  </Issuer>
  <Depository>
- <CustodyKind>Custodian</CustodyKind>
+ <CustodyKind>Depository</CustodyKind>
  <Name>CSD</Name>
  <EDRPOU>30370711</EDRPOU>
  <Address>
+ <Address>
+ <Type>Legal</Type>
  <Country>Country</Country>
- <PostCode>00000</PostCode>
- <State>State</State>
+ <Region>State</Region>
  <District>Distr</District>
  <City>City</City>
  <Street>Street</Street>
+ <PostCode>00000</PostCode>
+ </Address>
  </Address>
  <License>License</License>
  <Contacts>My contacts</Contacts>
@@ -43,89 +48,89 @@
  <MDOCode>123456</MDOCode>
  <EDRPOU>01123456</EDRPOU>
  <Address>
+ <Address>
+ <Type>Legal</Type>
  <Country>Country</Country>
- <PostCode>00000</PostCode>
- <State>State</State>
+ <Region>State</Region>
  <District>Distr</District>
  <City>City</City>
  <Street>Street</Street>
+ <PostCode>00000</PostCode>
+ </Address>
  </Address>
  <License>Custody Lic</License>
  <Contacts>DI contacts</Contacts>
- <Owners>
+ <OwnerElements>
+04_ Specification_holders _CSD
+19
  <OwnerElement>
- <Owner>
+ <Owners>
  <OwnerIndividual>
  <Account>123456-UA10123456</Account>
- <BankAccount />
-
  <Address>
+ <Address>
+ <Type>Legal</Type>
  <Country>Country</Country>
- <PostCode>00000</PostCode>
- <State>State2</State>
+ <Region>State2</Region>
  <District>Distr2</District>
  <City>City 2</City>
  <Street>Street2</Street>
+ <PostCode>00000</PostCode>
  </Address>
+ </Address>
+ <BankAccount />
  <Name>Petrov Vodkin</Name>
  <Citizenship>UA</Citizenship>
- <Document>Passport</Document>
+ <Document>
+ <DocType>Passport</DocType>
+ <DocSerie>Serie</DocSerie>
+ <DocNumber>Numb</DocNumber>
+ <DocDate>0001-01-01T00:00:00</DocDate>
+ </Document>
  <Birth>Anywere</Birth>
  <TIN>0123456789</TIN>
  </OwnerIndividual>
  <OwnerIndividual>
  <Account>123456-UA10123456</Account>
- <BankAccount />
  <Address>
- <Country>Country</Country>
- <PostCode>00000</PostCode>
- <State>State2</State>
+ <Address>
+ <Type>Legal</Type>
+ / <Country>Country</Country>
+ <Region>State2</Region>
  <District>Distr2</District>
  <City>City 2</City>
  <Street>Street2</Street>
+ <PostCode>00000</PostCode>
  </Address>
+ </Address>
+ <BankAccount />
  <Name>Petrov Whiskey</Name>
  <Citizenship>UA</Citizenship>
- <Document>Passport</Document>
+ <Document>
+ <DocType>Passport</DocType>
+ <DocSerie>Serie</DocSerie>
+ <DocNumber>Numb</DocNumber>
+ <DocDate>0001-01-01T00:00:00</DocDate>
+ </Document>
  <Birth>Anywere</Birth>
  <TIN>0123456788</TIN>
  </OwnerIndividual>
- </Owner>
+ </Owners>
  <TypeDeponentCode>110</TypeDeponentCode>
- <CountStock>200</CountStock>
- <CountStockNotary>0</CountStockNotary>
- <StockValue>0</StockValue>
- </OwnerElement>
- <OwnerElement>
- <Owner>
- <OwnerCompanyResident>
- <Account>123456-UA10123456</Account>
- <BankAccount />
- <Name>TOV "Roga"</Name>
- <Address>
- <Country>Country</Country>
- <PostCode>00000</PostCode>
- <State>State2</State>
- <District>Distr2</District>
- <City>City 2</City>
- <Street>Street2</Street>
- </Address>
- <EDRPOU>123457</EDRPOU>
- </OwnerCompanyResident>
- </Owner>
- <TypeDeponentCode>310</TypeDeponentCode>
- <CountStock>1</CountStock>
- <CountStockNotary>0</CountStockNotary>
+ <StockCount>200</StockCount>
+ <StockNotaryCount>0</StockNotaryCount>
  <StockValue>0</StockValue>
  <Encumbers>
  <Encumber>
  <StockCount>1</StockCount>
- <Description>427000</Description>
+ <Description>Безумовне блокування</Description>
+ <Code>B23</Code>
  </Encumber>
  </Encumbers>
  </OwnerElement>
-
- </Owners>
+04_ Specification_holders _CSD
+20
+ </OwnerElements>
  <CountOwners>2</CountOwners>
  <CountStocks>200</CountStocks>
  <CountEncumberStocks>1</CountEncumberStocks>
@@ -138,71 +143,111 @@
  <MDOCode>654321</MDOCode>
  <EDRPOU>41123456</EDRPOU>
  <Address>
+ <Address>
+ <Type>Legal</Type>
  <Country>Country</Country>
- <PostCode>00000</PostCode>
- <State>State2</State>
+ <Region>State2</Region>
  <District>Distr2</District>
  <City>City 2</City>
  <Street>Street2</Street>
+ <PostCode>00000</PostCode>
+ </Address>
  </Address>
  <License>Custody Lic</License>
  <Contacts>DI contacts</Contacts>
- <Owners>
+ <OwnerElements>
  <OwnerElement>
- <Owner>
+ <Owners>
  <OwnerCompanyNonResident>
  <Account>123456-UA10123456</Account>
  <Address>
+ <Address>
+ <Type>Legal</Type>
  <Country>Country</Country>
- <PostCode>00000</PostCode>
- <State>State2</State>
+ <Region>State2</Region>
  <District>Distr2</District>
  <City>City 2</City>
  <Street>Street2</Street>
+ <PostCode>00000</PostCode>
+ </Address>
  </Address>
  <BankAccount />
  <Name>Canada stocks LLC</Name>
  <IdCode>BH23131</IdCode>
  <Country>Canada</Country>
  </OwnerCompanyNonResident>
- </Owner>
+ </Owners>
  <TypeDeponentCode>320</TypeDeponentCode>
- <CountStock>500</CountStock>
- <CountStockNotary>0</CountStockNotary>
+ <StockCount>500</StockCount>
+ <StockNotaryCount>0</StockNotaryCount>
  <StockValue>0</StockValue>
  </OwnerElement>
  <OwnerElement>
- <Owner>
+ <Owners>
  <OwnerGov>
- <Type>Goverment</Type>
  <Account>123456-UA10123456</Account>
  <Address>
+ <Address>
+ <Type>Legal</Type>
  <Country>Country</Country>
- <PostCode>00000</PostCode>
- <State>State2</State>
+ <Region>State2</Region>
  <District>Distr2</District>
  <City>City 2</City>
  <Street>Street2</Street>
+ <PostCode>00000</PostCode>
+04_ Specification_holders _CSD
+21
+ </Address>
  </Address>
  <BankAccount />
  <NameSubject>KMU</NameSubject>
  <EDRPOU>123457</EDRPOU>
- <NameTerGr>Kyiv City office</NameTerGr>
  </OwnerGov>
- </Owner>
-
+ </Owners>
  <TypeDeponentCode>210</TypeDeponentCode>
- <CountStock>100</CountStock>
- <CountStockNotary>0</CountStockNotary>
+ <StockCount>100</StockCount>
+ <StockNotaryCount>0</StockNotaryCount>
  <StockValue>0</StockValue>
  <Restrictions>
  <Restriction>
  <StockCount>100</StockCount>
- <Kind>NonVoting</Kind>
+ <Code>NonVoting</Code>
  </Restriction>
  </Restrictions>
  </OwnerElement>
+ <OwnerElement>
+ <Owners>
+ <OwnerTerGr>
+ <Account>123456-UA10323456</Account>
+ <Address>
+ <Address>
+ <Type>Legal</Type>
+ <Country>Country</Country>
+ <Region>State2</Region>
+ <District>Distr2</District>
+ <City>City 2</City>
+ <Street>Street2</Street>
+ <PostCode>00000</PostCode>
+ </Address>
+ </Address>
+ <BankAccount />
+ <Name>Kyiv City office</Name>
+ <NameSubject>Name Subject</NameSubject>
+ <EDRPOU>123457</EDRPOU>
+ </OwnerTerGr>
  </Owners>
+ <TypeDeponentCode>210</TypeDeponentCode>
+ <StockCount>100</StockCount>
+ <StockNotaryCount>0</StockNotaryCount>
+ <StockValue>0</StockValue>
+ <Restrictions>
+ <Restriction>
+ <StockCount>100</StockCount>
+ <Code>NonVoting</Code>
+ </Restriction>
+ </Restrictions>
+ </OwnerElement>
+ </OwnerElements>
  <CountOwners>2</CountOwners>
  <CountStocks>100</CountStocks>
  <CountEncumberStocks>0</CountEncumberStocks>
