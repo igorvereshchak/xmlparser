@@ -4,6 +4,9 @@
 import xml.etree.ElementTree as et
 from xml.etree.ElementTree import ParseError as er
 
+from datetime import datetime
+import sys
+
 import dbf
 
 
@@ -34,7 +37,8 @@ def parse_xml(fname):
         exit('Parsing error')
     root = tree.getroot()
 
-    record_date = root.find('RecordDate').text[:10]
+    dt = datetime.strptime(root.find('RecordDate').text[:10], "%Y-%m-%d")
+    record_date = dt.strftime("%d.%m.%Y")
 
     for childs in root.findall('./Custodians//CustodianElement//OwnerElements//OwnerElement//Owners'):
         for owner_type in childs:
@@ -42,7 +46,10 @@ def parse_xml(fname):
             record['DATE'] = record_date
             record['KOD'] = 'Ф' if owner_type.tag == 'OwnerIndividual' else 'Ю'
             name = get_field_text(owner_type, 'Name')
-            citizenship = get_field_text(owner_type, 'Citizenship', '-')
+
+            ctzn = get_field_text(owner_type, 'Citizenship', '-') 
+            citizenship = "Україна" if ctzn == 'UA' else ctzn
+            
             record['NAME'] = "{0} ({1})".format(name, citizenship) 
             record['DEPO_ID'] = get_field_text(owner_type, 'Account')
             record['R2'] = get_address(owner_type.find('Address/Address'))
@@ -63,7 +70,7 @@ def process_dbf(fname):
         KOD c(1); NAME c(254); RL c(254); R2 c(254); NALOG_CODE c(26); BORN_PLACE c(50);\
         BORN_DATE c(10); SUM_PAP n(19, 0); SUM_BLOCK n(19, 0); SUM_QUO n(19, 0); \
         OBT c(150); SUM_COST n(19, 2); PERCENT n(12, 6); BANK c(150); DIV_KIND n(1, 0);\
-        SANKCII c(80)', codepage='cp1251')
+        SANKCII c(80)', codepage='cp866')
        
     table.open(mode=dbf.READ_WRITE)
 
@@ -95,7 +102,7 @@ def process_dbf(fname):
 
 def main():
     parse_xml('reestr.xml')
-    #process_dbf('dbase.dbf')
+    process_dbf('dbase.dbf')
 
 if __name__ == "__main__":
     main()
