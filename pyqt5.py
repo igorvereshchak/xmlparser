@@ -1,24 +1,40 @@
 # -*- coding: utf-8 -*-
 
 
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QFileDialog
+try:
+    from PyQt5 import QtCore, QtGui, QtWidgets
+    from PyQt5.QtWidgets import QFileDialog, QAction
+except:
+    print()
+    print("PyQt5 module Not Found")
+    print("Install: pip3 install PyQt5")
+    sys.exit(1)
+
+try:
+    import dbf
+except:
+    print()
+    print("dbf module Not Found")
+    print("Install: pip3 install dbf")
+    sys.exit(1)
+
 
 import configparser
 import os
 from datetime import datetime
 import xml.etree.ElementTree as et
 from xml.etree.ElementTree import ParseError as er
-import dbf
+
+from typing import List
 
 class Ui_MainWindow(QtWidgets.QMainWindow):
 
-    config_path = 'settings.ini'
-    dbf_path = ""
-    xml_fname = ""
-    DEBUG = 0
-    owners = []
-    infos = []
+    config_path: str = 'settings.ini'
+    dbf_path: str = ""
+    xml_fname: str = ""
+    DEBUG: int = 0
+    owners: List = []
+    infos: List = []
 
     def check_conditions(self):
         if not os.path.isdir(self.dbf_path):
@@ -63,16 +79,25 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
     
     
         self.setObjectName("MainWindow")
-        self.resize(400, 400)
+        self.resize(400, 500)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.sizePolicy().hasHeightForWidth())
         self.setSizePolicy(sizePolicy)
-        self.setMinimumSize(QtCore.QSize(400, 400))
-        self.setMaximumSize(QtCore.QSize(400, 400))
+        self.setMinimumSize(QtCore.QSize(400, 500))
+        self.setMaximumSize(QtCore.QSize(400, 500))
 
         self.setWindowIcon(QtGui.QIcon('./img/3d.png'))
+
+        mainMenu = self.menuBar()
+        fileMenu = mainMenu.addMenu('&File')
+        debugAct = QAction('Debug', self, checkable=True)
+        debugAct.setStatusTip('Debug')
+        
+        debugAct.setChecked(bool(int(self.DEBUG)))
+        debugAct.triggered.connect(self.check_debug)
+        fileMenu.addAction(debugAct)
 
         self.centralwidget = QtWidgets.QWidget(self)
         self.centralwidget.setObjectName("centralwidget")
@@ -126,7 +151,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.processButton.setGeometry(QtCore.QRect(130, 150, 121, 31))
         self.processButton.setObjectName("processButton")
         self.LogEdit = QtWidgets.QTextEdit(self.centralwidget)
-        self.LogEdit.setGeometry(QtCore.QRect(0, 190, 401, 211))
+        self.LogEdit.setGeometry(QtCore.QRect(0, 190, 401, 290))
         self.LogEdit.setReadOnly(True)
         self.LogEdit.setObjectName("LogEdit")
         self.setCentralWidget(self.centralwidget)
@@ -139,6 +164,10 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.retranslateUi(self) #
         QtCore.QMetaObject.connectSlotsByName(self)#
     
+    def check_debug(self, state):
+        self.DEBUG = int(state)
+        
+
     def load_xml_file(self):
         options = QFileDialog.Options()
         #options |= QFileDialog.DontUseNativeDialog
@@ -162,9 +191,13 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         else:
             self.log("Данные корректны")
         #self.LogEdit.append("Clicked!")
-        self.parse_xml(self.xml_fname)
-        if len(self.owners) > 0:
+        if self.parse_xml(self.xml_fname):
             self.process_owner(self.dbf_path+'/owners.dbf')
+            self.process_info(self.dbf_path+'/info.dbf')
+        #self.log('')
+        self.infos = []
+        self.owners = []
+
         
 
     def log(self, text):
@@ -184,20 +217,34 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
             tree = et.ElementTree(file=fname)
         except er:
             self.log('Ошибка парсинга XML')
-            return 
+            return False
         root = tree.getroot()
         
         if root.find('RecordDate') is None:
             self.log('Ошибка парсинга: не найдена секция <RecordDate>')
-            return 
+            return False
         else:
             dt = datetime.strptime(root.find('RecordDate').text[:10], "%Y-%m-%d")
             record_date = dt.strftime("%d.%m.%Y")
 
         issue = root.find('Issue')
-        #paper_id = issue.findtext('ISIN')
-        #paper_kind = issue.findtext('Kind') + issue.findtext('Klass')
+        paper = {}
 
+        if not (issue is None):
+
+            for fnm in {'ISIN', 'Kind', 'Class', 'RegNum', 'NominalValue'}:
+                paper[fnm] = issue.findtext(fnm)
+
+            depo = root.find('Depository')
+            self.add_info(depo, paper)
+
+            issuer = root.find('Issuer')
+            self.add_info(issuer, paper)
+
+            for child in root.findall('./Custodians//CustodianElement'):
+                self.add_info(child, paper)
+
+        
         for childs in root.findall('./Custodians//CustodianElement//OwnerElements//OwnerElement//Owners'):
             for owner_type in childs:
                 record = {}
@@ -217,11 +264,28 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         if self.DEBUG:
             for o in self.owners:
                 self.log(str(o))
+            for o in self.infos:
+                self.log(str(o))
+        return True
+
+    def add_info(self, node, paper):
+        record = {}
+        record['PAPER_ID'] = paper['ISIN']
+        record['PAPER_KIND'] = paper['Class'][:19]
+        record['REG_NUM'] = paper['RegNum']
+        record['NOMINAL'] = paper['NominalValue']
+        record['CUST_ID'] = node.findtext('MDOCode', "")
+        record['EDRPOU'] = node.findtext('EDRPOU')
+        record['NAME'] = node.findtext('Name')
+        record['ADDRESS'] = self.get_address(node.find('Address'))
+        self.infos.append(record)
 
     def get_address(self, node):
 
-        fields = ['Street', 'House', 'Aprt', 'City', 'District', 'State', 'PostCode']
+        fields = ['AddInfo', 'Street', 'House', 'Aprt', 'City', 'District', 'State', 'PostCode']
         adr = []
+        if node.find('Address'):
+            node = node.find('Address')
 
         for field in fields:
             if node.findtext(field):
@@ -231,7 +295,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
 
     def process_owner(self, fname):
 
-        self.log(fname)
+        #self.log(fname)
         
         table = dbf.Table(fname, 'DATE c(10); CUST_ID C(6); CUST_NAME c(70); DEPO_ID c(17);\
             KOD c(1); NAME c(254); RL c(254); R2 c(254); NALOG_CODE c(26); BORN_PLACE c(50);\
@@ -264,17 +328,27 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
             rec["DIV_KIND"] = 0 
             rec["SANKCII"] = ""
             table.append(rec)
-        self.log('Таблица OWNERS создана')
+        self.log('Таблица OWNERS создана. Добавлено {0} записей'.format(len(self.owners)))
         table.close()
 
     def process_info(self, fname):
 
-        table = dbf.Table(fname, 'PAPER_ID c(12); PAER_KIND c(20); REG_NUM c(20); NOMINAL n(15, 2); \
+        table = dbf.Table(fname, 'PAPER_ID c(12); PAPER_KIND c(20); REG_NUM c(20); NOMINAL n(15, 2); \
         CUST_ID c(6); EDRPOU c(26); NAME c(70); ADDRESS c(120); LICENSE c(46); PHONE c(40)', codepage='cp1251')
        
         table.open(mode=dbf.READ_WRITE)
+
+        for info in self.infos:
+            rec = {}
+            for fld in info:
+                rec[fld] = info[fld]
+            rec['LICENSE'] = ''
+            rec['PHONE'] = ''
+            table.append(rec)
+
+        self.log('Таблица INFO создана. Добавлено {0} записей'.format(len(self.infos)))
         table.close()
-        self.log('Таблица INFO создана')
+        
         
 #import icons_rc
 
