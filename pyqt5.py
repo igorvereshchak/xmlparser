@@ -58,7 +58,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         
         config = configparser.ConfigParser()
         config.read(path)
-        self.dbf_path = config.get('Settings', 'dbf_path')
+        self.dbf_path = config.get('Settings', 'dbf_path', fallback="")
         self.DEBUG = config.get('Settings', 'debug', fallback=0)
     
     def save_config(self, path):
